@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>CFE exmaples</title>
+    <link href="../src/styles/styles.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="../src/styles/jquery.cfe.css" media="all" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="../src/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="../src/jquery.cfe.js"></script>
+
+    <script type="text/javascript">
+
+        if (!window.jQuery) {
+            alert('jQuery not found!');
+        }
+
+        jQuery(function($){
+            $('select, input[type="checkbox"], input[type="radio"], input[type="file"]', '.cfe').cfe();
+        })
+        
+    </script>
+</head>
+    
+<body>
+    <form action="" method="get" id="exmaple_form_1">
+        <div class="radio normal">
+            <label for="radio1"><input type="radio" id="radio1" name="radio" value="1" /> Radio 1</label>
+            <label for="radio2"><input type="radio" id="radio2" name="radio" value="2" /> Radio 2</label>
+            <label for="radio3"><input type="radio" id="radio3" name="radio" value="3" /> Radio 3</label>
+        </div>
+
+        <div class="radio cfe">
+            <label for="radio1_cfe"><input type="radio" id="radio1_cfe" name="radio_cfe" value="1" /> Radio 1</label>
+            <label for="radio2_cfe"><input type="radio" id="radio2_cfe" name="radio_cfe" value="2" /> Radio 2</label>
+            <label for="radio3_cfe"><input type="radio" id="radio3_cfe" name="radio_cfe" value="3" /> Radio 3</label>
+        </div>
+
+        <br/><br/>
+
+        <div class="radio normal">
+            <label for="checkbox1"><input type="checkbox" id="checkbox1" name="checkbox" value="1" /> Checkbox 1</label>
+            <label for="checkbox2"><input type="checkbox" id="checkbox2" name="checkbox" value="2" /> Checkbox 2</label>
+            <label for="checkbox3"><input type="checkbox" id="checkbox3" name="checkbox" value="3" /> Checkbox 3</label>
+        </div>
+
+        <div class="radio cfe">
+            <label for="checkbox1_cfe"><input type="checkbox" id="checkbox1_cfe" name="checkbox_cfe" value="1" /> Checkbox 1</label>
+            <label for="checkbox2_cfe"><input type="checkbox" id="checkbox2_cfe" name="checkbox_cfe" value="2" /> Checkbox 2</label>
+            <label for="checkbox3_cfe"><input type="checkbox" id="checkbox3_cfe" name="checkbox_cfe" value="3" /> Checkbox 3</label>
+        </div>
+        
+        <br/><br/>
+
+        <div class="radio normal">
+            <input type="file" value="" name="file" id="file" />
+        </div>
+
+        <div class="radio cfe">
+            <input type="file" value="" name="file" id="file" />
+        </div>
+
+        <br/><br/>
+
+        <select name="select">
+            <option value=""></option>
+            <option value="1">option 1</option>
+            <option value="3">option 2</option>
+            <option value="2">option 3</option>
+        </select>
+    </form>
+</body>
+</html>
