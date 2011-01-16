@@ -1,22 +1,19 @@
-.select_cfe{
-    display: block;
-    overflow: hidden;
-    position: absolute;
-}
+
+/** Select elements **/
 .cfe_select_wrp{
     position:relative;
-    display:inline-block;
 }
-.cfe_select_wrp .select_cfe{
+
+.cfe_select_wrp .pholder{
     position:absolute;
     top:0;
     left:0;
 }
 .cfe_select_wrp select{
-    border:medium none;
-    height:25px;
-    margin-left:1px;
-    width:322px;
+    opacity:0;
+    position:relative;
+    filter: alpha(opacity=0);
+    z-index: 5;
 }
 
 input.styled{
@@ -26,7 +23,8 @@ input.styled{
     opacity:0.5;
     filter:alpha(opacity=50);
 }
-.checkbox_cfe,.radio_cfe{
+.checkbox_cfe,
+.radio_cfe{
     display:block;
     left:0;
     position:absolute;
@@ -203,6 +201,21 @@ input.styled{
     background-position:0 -75px;
 }
 
-
-
-
+.cfe_select_wrp{
+    color: #888888;
+    font-size: 12px;
+    padding: 5px 0 0;
+}
+.cfe_select_wrp .pholder{
+    color: #888888;
+    background: url("img/select.png") no-repeat scroll 0 0 transparent;
+    font-size: 12px;
+    height: 11px;
+    line-height: 11px !important;
+    padding: 6px 22px 4px 6px;
+    width: 136px;
+}
+.cfe_select_wrp select{
+    height: 21px;
+    width:164px;
+}

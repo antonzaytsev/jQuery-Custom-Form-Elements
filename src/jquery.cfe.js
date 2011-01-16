@@ -28,18 +28,18 @@
             var inputName = el.attr('name');
             name = inputName.replace(/(\]\[)|(\])|(\[)/gi,'_');
 
+            placeHolder_class.push('pholder');
+
             switch(tag){
                 
                 case 'select':
-                    el.wrap('<span id="'+name+'wrp" class="cfe_'+type+'_wrp" />');
-                    el.css({
-                      'opacity':0,
-                      'position':'relative',
-                      'filter': 'alpha(opacity=0)',
-                      'z-index': '5'
-                    });
+                    el.wrap('<span id="'+name+'_wrp" class="cfe_'+tag+'_wrp" />');
 
-                    text = el.find('option:selected').text();
+                    placeHolder = $("<"+o.placeHolder+"/>")
+                                  .addClass(placeHolder_class.join(' '))
+                                  .data({'element':el})
+                                  .text(el.find('option:selected').text());
+                    el.before(placeHolder);
 
                     if (!el.attr("disabled")) {
                         el.change(function(){
@@ -52,14 +52,13 @@
                     else {
                         el.prev().addClass("disabled");
                     }
-                    if (!text) {text = el.val();}
-                    placeHolder_class.push('pholder');
+                    
+                    
                     break;
 
                 case 'input':
                     var type = el.attr('type');
                     text = '';
-                    placeHolder_class.push('pholder');
 
                     switch (type) {
 
