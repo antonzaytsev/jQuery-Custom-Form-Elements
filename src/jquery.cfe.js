@@ -119,19 +119,18 @@
 
                         case 'file':
                             el.wrap('<div class="cfe_file_wrp" />')
-                             .after('<div title="Выбрать файл" class="fakeButton" />'+
-                                    '<div class="fileNamePlaceHolder" /> <!--сюда мы будем вставлять имя файла и иконку-->')
+                             .after('<div title="Выбрать файл" class="fakeButton">Выбрать файл</div>'+
+                                    '<div class="fileNamePlaceHolder" />')
                              .addClass('cfe_file')
                              .wrap('<span class="'+el.get(0).id+'_input_wrp" />')
 
-                            el.bind('change', function() {
+                            el.bind('change.cfe', function() {
 
                                 var file = $(this).val(),
                                     fileName = $(this).parent().parent().find('.fileNamePlaceHolder'),
                                     reWin = /.*\\(.*)/,
                                     reUnix = /.*\/(.*)/,
-                                    fileTitle,
-                                    pos
+                                    fileTitle
 
                                 fileTitle = file.replace(reWin, "$1"); //выдираем название файла для windows
                                 fileTitle = fileTitle.replace(reUnix, "$1"); //выдираем название файла для unix-систем
@@ -141,14 +140,23 @@
                                     fileName.hide()
                                     return;
                                 }
+                                fileName.show();
+                                
                                 var RegExExt =/.*.(\..*)/;
                                 var ext = fileTitle.replace(RegExExt, "$1");//и его расширение
+
+                                if (fileName.attr('ext')){
+                                    fileName.removeClass('ext_'+fileName.attr('ext'));
+                                    fileName.removeAttr('ext');
+                                }
 
                                 if (ext) {
                                     ext = ext.toLowerCase().substr(1);
                                     fileName.addClass('ext_'+ext);
+                                    fileName.attr('ext', ext);
                                 }
-                            });
+                                
+                            }).trigger('change');
 
                             break;
                     }
