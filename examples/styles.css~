@@ -53,7 +53,3 @@ input{
     height: 21px;
     width:164px;
 }
-
-.cfe_file_wrp .fileNamePlaceHolder{
-    background: url("img/file_icons.png") no-repeat scroll 0 -176px transparent;
-}
