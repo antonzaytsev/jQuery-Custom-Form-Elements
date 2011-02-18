@@ -13,6 +13,40 @@ input{
     padding:0;
 }
 
+#exmaple_form_1{
+    padding:40px;
+}
+
+
+
+
+
+
+
+.cfe_radio_wrp span{
+    background:url(img/radio.png) no-repeat;
+    width:19px;
+    height:20px;
+}
+.cfe_radio_wrp input{
+    margin: 1px 0 0 0;
+}
+.cfe_radio_wrp .pholder {
+    left: -2px;
+    top: -3px;
+}
+.cfe_radio_wrp span:hover{
+    background-position:0 -25px;
+}
+.cfe_radio_wrp span.checked{
+    background-position:0 -50px;
+}
+.cfe_radio_wrp span.checked:hover{
+    background-position:0 -75px;
+}
+
+
+
 .cfe_checkbox_wrp span{
     background:url(img/checkbox.png) no-repeat;
     width:19px;
@@ -38,7 +72,6 @@ input{
 .cfe_select_wrp{
     color: #888888;
     font-size: 12px;
-    padding: 5px 0 0;
 }
 .cfe_select_wrp .pholder{
     color: #888888;
@@ -52,8 +85,33 @@ input{
 .cfe_select_wrp select{
     height: 21px;
     width:164px;
+    border: medium none;
+    display: block;
 }
 
-.cfe_file_wrp .fileNamePlaceHolder{
+
+.fileNamePlaceHolder{
     background: url("img/file_icons.png") no-repeat scroll 0 -176px transparent;
 }
+.fileNamePlaceHolder.ext_doc{background-position:0 0;}
+.fileNamePlaceHolder.ext_bmp{background-position:0 -16px;}
+.fileNamePlaceHolder.ext_jpg,
+.fileNamePlaceHolder.ext_jpeg
+{background-position:0 -32px;}
+.fileNamePlaceHolder.ext_png{background-position:0 -48px;}
+.fileNamePlaceHolder.ext_gif{background-position:0 -64px;}
+.fileNamePlaceHolder.ext_psd{background-position:0 -80px;}
+.fileNamePlaceHolder.ext_mp3,
+.fileNamePlaceHolder.ext_wav,
+.fileNamePlaceHolder.ext_ogg
+{background-position:0 -96px;}
+.fileNamePlaceHolder.ext_avi,
+.fileNamePlaceHolder.ext_flv,
+.fileNamePlaceHolder.ext_mp4,
+.fileNamePlaceHolder.ext_mov,
+.fileNamePlaceHolder.ext_wmv
+{background-position:0 -112px;}
+.fileNamePlaceHolder.ext_pdf{background-position:0 -128px;}
+.fileNamePlaceHolder.ext_pdf{background-position:0 -144px;}
+.fileNamePlaceHolder.ext_pdf{background-position:0 -160px;}
+.fileNamePlaceHolder.ext_pdf{background-position:0 -160px;}

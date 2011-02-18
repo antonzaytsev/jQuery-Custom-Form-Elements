@@ -3,15 +3,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    
     <title>CFE exmaples</title>
+    
+    <link href="../src/jquery.cfe.css" media="all" rel="stylesheet" type="text/css" />
     <link href="styles.css" media="all" rel="stylesheet" type="text/css" />
-    <link href="../src/styles/jquery.cfe.css" media="all" rel="stylesheet" type="text/css" />
 
-    <script type="text/javascript" src="../src/jquery-1.4.4.min.js"></script>
+
+    <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="../src/jquery.cfe.js"></script>
 
     <script type="text/javascript">
-
         if (!window.jQuery) {
             alert('jQuery not found!');
         }
@@ -19,7 +21,6 @@
         jQuery(function($){
             $('select, input[type="checkbox"], input[type="radio"], input[type="file"]', '.cfe').cfe();
         })
-        
     </script>
 </head>
     

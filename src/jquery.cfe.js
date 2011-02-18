@@ -2,11 +2,14 @@
     Custom Form Elements
 
     Requirments: jQuery 1.3.2+
-    Version: 0.65
+    Version: 0.7
     Author: Anton Zaycev (http://antonzaycev.ru)
 	
     Simple usage:
         $('select, input').cfe();
+
+    input params:
+        <tag> <description>
 */
 
 (function($){
@@ -53,7 +56,6 @@
                         el.prev().addClass("disabled");
                     }
                     
-                    
                     break;
 
                 case 'input':
@@ -76,8 +78,6 @@
 
                             placeHolder.bind('click', function(){
                                 
-//                                $(this).data('element').trigger('click');
-                                
                                 if (!$(this).data('element').is(':checked')){
                                     $(this).addClass('checked');
                                 }
@@ -85,10 +85,6 @@
                                     $(this).removeClass('checked');
                                 
                             });
-
-//                            el.bind('click', function(){
-//                                console.log('checkbox changed', $(this).is(':checked'), $(this).attr('checked'));
-//                            })
 
                             break;
 
@@ -111,28 +107,30 @@
                                 $('[name="'+$(this).data('name')+'"]').prev().removeClass('checked');
                                 $(this)
                                     .toggleClass('checked')
-                                    .data('element').click();
+                                    .data('element').trigger('click');
                             });
 
                             break;
 
                         case 'file':
-                            el.wrap('<div class="cfe_file_wrp" />')
-                             .after('<div title="Выбрать файл" class="fakeButton">Выбрать файл</div>'+
+                            el.wrap('<div class="cfe_file_wrp" />');
+                            var wrp = el.parent();
+
+                            el.after('<div title="Выбрать файл" class="fakeButton">Выбрать файл</div>'+
                                     '<div class="fileNamePlaceHolder" />')
-                             .addClass('cfe_file')
-                             .wrap('<span class="'+el.get(0).id+'_input_wrp" />')
+                                .addClass('cfe_file')
+                                .wrap('<span class="'+el.get(0).id+'_input_wrp" />');
 
                             el.bind('change.cfe', function() {
 
                                 var file = $(this).val(),
-                                    fileName = $(this).parent().parent().find('.fileNamePlaceHolder'),
+                                    fileName = wrp.find('.fileNamePlaceHolder'),
                                     reWin = /.*\\(.*)/,
                                     reUnix = /.*\/(.*)/,
                                     fileTitle
 
-                                fileTitle = file.replace(reWin, "$1"); //выдираем название файла для windows
-                                fileTitle = fileTitle.replace(reUnix, "$1"); //выдираем название файла для unix-систем
+                                fileTitle = file.replace(reWin, "$1") //выдираем название файла для windows
+                                                .replace(reUnix, "$1"); //выдираем название файла для unix-систем
                                 fileName.html(fileTitle);
 
                                 if (fileTitle.length == 0) {
@@ -140,14 +138,13 @@
                                     return;
                                 }
                                 fileName.show();
-                                
-                                var RegExExt =/.*.(\..*)/;
-                                var ext = fileTitle.replace(RegExExt, "$1");//и его расширение
 
                                 if (fileName.attr('ext')){
                                     fileName.removeClass('ext_'+fileName.attr('ext'));
                                     fileName.removeAttr('ext');
                                 }
+
+                                var ext = fileTitle.replace(/.*(\..*)/, "$1");//и его расширение
 
                                 if (ext) {
                                     ext = ext.toLowerCase().substr(1);
@@ -167,16 +164,3 @@
         return this;
     }
 })(jQuery);
-
-
-
-
-/*
- $('*').each(function(){
-    if ($(this).data('cfe') == 1){
-var cl = $(this).clone()
-$(this).parent().after(cl).remove();
-cl.data('cfe', 0);
-}
-});
- */
