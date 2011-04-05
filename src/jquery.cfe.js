@@ -76,15 +76,33 @@
                                   .data({'element':el});
                             el.before(placeHolder);
 
-                            placeHolder.bind('click', function(){
-                                
-                                if (!$(this).data('element').is(':checked')){
-                                    $(this).addClass('checked');
-                                }
-                                else
-                                    $(this).removeClass('checked');
-                                
-                            });
+                            /*
+                             * if checkbox is inside of label then we just need to handle click on checkbox
+                             * because click on placeholder will propagate to label
+                             * and click on label will trigger click on checkbox
+                             */
+                            el
+                                .data('pholder',placeHolder)
+                                .bind('click.cfe', function(e){
+                                    var pholder = $(this).data('pholder');
+
+                                    if (!$(this).is(':checked')){
+                                        pholder.removeClass('checked');
+                                    }
+                                    else {
+                                        pholder.addClass('checked');
+                                    }
+//                                    console.log('click el');
+//                                    console.log(e);
+                                    e.stopPropagation();
+                                });
+
+                            /* if checkbox is outside of label we need to handle click on placeholder
+                            * */
+//                            placeHolder.bind('click', function(){
+////                                 el.click({'test':'trololo'});
+//                                 el.click();
+//                            });
 
                             break;
 
@@ -103,13 +121,13 @@
                                   });
                             el.before(placeHolder);
 
-                            placeHolder.bind('click', function(){
-                                $('[name="'+$(this).data('name')+'"]').prev().removeClass('checked');
-                                $(this)
-                                    .toggleClass('checked')
-                                    .data('element').trigger('click');
-                            });
-
+                            el
+                                .bind('click.cfe', function(e){
+                                    $('[name="'+$(this).attr('name')+'"]').prev().removeClass('checked');
+                                    $(this).prev().toggleClass('checked');
+//                                    e.stopPropagation();
+                                });
+                                
                             break;
 
                         case 'file':
