@@ -83,49 +83,25 @@
                              */
                             el
                                 .data('pholder',placeHolder)
-                                .bind('click.cfe', function(e){
+                                .bind('change.cfe', function(e){
                                     var pholder = $(this).data('pholder');
 
-                                    if (!$(this).is(':checked')){
+                                    if (!$(this).is(':checked'))
                                         pholder.removeClass('checked');
-                                    }
-                                    else {
+                                    else
                                         pholder.addClass('checked');
-                                    }
-                                    console.log('change el');
-//                                    console.log(e);
+
                                     e.stopPropagation();
                                 });
 
-                             el.click(function(){
-                                 console.log('click el');
-                             });
-
-                            placeHolder
-//                                .data('pholder',placeHolder)
-                                .bind('click.cfe', function(e){
-                                    console.log('click ph');
-                                    $(this).data('element').click();
-                                /* teh cruch here
-                                * somehow when we trigger 'click' 'change will not be triggered'
-                                * */
-                                    if (!$(this).data('element').is(':checked')){
-                                        $(this).removeClass('checked');
-                                    }
-                                    else {
-                                        $(this).addClass('checked');
-                                    }
-//                                    console.log(e);
-//                                    e.stopPropagation();
+                            /* if checkbox is inside of label
+                            * we should handle click on placeholder*/
+                            if (!$('#'+el.attr('id'),'label[for='+el.attr('id')+']').size()){
+                                placeHolder.bind('click.cfe', function(e){
+                                    //just click is not enough because it wont trigger change
+                                    $(this).data('element').click().change();
                                 });
-                            /* if checkbox is outside of label we need to handle click on placeholder
-                            * */
-
- //                            placeHolder.bind('click', function(){
-////                                 el.click({'test':'trololo'});
-//                                 el.click();
-//                            });
-
+                            }
                             break;
 
                         case 'radio':
@@ -141,14 +117,19 @@
                                       'element':el,
                                       'name':el.attr('name')
                                   });
-                            el.before(placeHolder);
-
                             el
+                                .before(placeHolder)
                                 .bind('change.cfe', function(e){
                                     $('[name="'+$(this).attr('name')+'"]').prev().removeClass('checked');
                                     $(this).prev().toggleClass('checked');
-//                                    e.stopPropagation();
                                 });
+
+                             /* same like with checkbox */
+                            if (!$('#'+el.attr('id'),'label[for='+el.attr('id')+']').size()){
+                                placeHolder.bind('click.cfe', function(e){
+                                    $(this).data('element').click().change();
+                                });
+                            }
 
                             break;
 
