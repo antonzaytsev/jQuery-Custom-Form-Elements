@@ -92,14 +92,36 @@
                                     else {
                                         pholder.addClass('checked');
                                     }
-//                                    console.log('click el');
+                                    console.log('change el');
 //                                    console.log(e);
                                     e.stopPropagation();
                                 });
 
+                             el.click(function(){
+                                 console.log('click el');
+                             });
+
+                            placeHolder
+//                                .data('pholder',placeHolder)
+                                .bind('click.cfe', function(e){
+                                    console.log('click ph');
+                                    $(this).data('element').click();
+                                /* teh cruch here
+                                * somehow when we trigger 'click' 'change will not be triggered'
+                                * */
+                                    if (!$(this).data('element').is(':checked')){
+                                        $(this).removeClass('checked');
+                                    }
+                                    else {
+                                        $(this).addClass('checked');
+                                    }
+//                                    console.log(e);
+//                                    e.stopPropagation();
+                                });
                             /* if checkbox is outside of label we need to handle click on placeholder
                             * */
-//                            placeHolder.bind('click', function(){
+
+ //                            placeHolder.bind('click', function(){
 ////                                 el.click({'test':'trololo'});
 //                                 el.click();
 //                            });
@@ -122,12 +144,12 @@
                             el.before(placeHolder);
 
                             el
-                                .bind('click.cfe', function(e){
+                                .bind('change.cfe', function(e){
                                     $('[name="'+$(this).attr('name')+'"]').prev().removeClass('checked');
                                     $(this).prev().toggleClass('checked');
 //                                    e.stopPropagation();
                                 });
-                                
+
                             break;
 
                         case 'file':
