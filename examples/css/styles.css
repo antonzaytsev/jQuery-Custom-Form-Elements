@@ -17,12 +17,6 @@ input{
     padding:40px;
 }
 
-
-
-
-
-
-
 .cfe_radio_wrp span{
     background:url(../img/radio.png) no-repeat;
     width:19px;
@@ -33,14 +27,16 @@ input{
 }
 .cfe_radio_wrp .pholder {
     left: -2px;
-    top: -3px;
+    top: -4px;
 }
+.cfe_radio_wrp span.hover,
 .cfe_radio_wrp span:hover{
     background-position:0 -25px;
 }
 .cfe_radio_wrp span.checked{
     background-position:0 -50px;
 }
+.cfe_radio_wrp span.checked.hover,
 .cfe_radio_wrp span.checked:hover{
     background-position:0 -75px;
 }
@@ -59,12 +55,14 @@ input{
     left: -2px;
     top: -3px;
 }
+.cfe_checkbox_wrp span.hover,
 .cfe_checkbox_wrp span:hover{
     background-position:0 -25px;
 }
 .cfe_checkbox_wrp span.checked{
     background-position:0 -50px;
 }
+.cfe_checkbox_wrp span.checked.hover,
 .cfe_checkbox_wrp span.checked:hover{
     background-position:0 -75px;
 }
