@@ -24,7 +24,7 @@ input{
 
 
 .cfe_radio_wrp span{
-    background:url(img/radio.png) no-repeat;
+    background:url(../img/radio.png) no-repeat;
     width:19px;
     height:20px;
 }
@@ -48,7 +48,7 @@ input{
 
 
 .cfe_checkbox_wrp span{
-    background:url(img/checkbox.png) no-repeat;
+    background:url(../img/checkbox.png) no-repeat;
     width:19px;
     height:20px;
 }
@@ -75,7 +75,7 @@ input{
 }
 .cfe_select_wrp .pholder{
     color: #888888;
-    background: url("img/select.png") no-repeat scroll 0 0 transparent;
+    background: url("../img/select.png") no-repeat scroll 0 0 transparent;
     font-size: 12px;
     height: 11px;
     line-height: 11px !important;
@@ -91,7 +91,7 @@ input{
 
 
 .fileNamePlaceHolder{
-    background: url("img/file_icons.png") no-repeat scroll 0 -176px transparent;
+    background: url("../img/file_icons.png") no-repeat scroll 0 -176px transparent;
 }
 .fileNamePlaceHolder.ext_doc{background-position:0 0;}
 .fileNamePlaceHolder.ext_bmp{background-position:0 -16px;}
