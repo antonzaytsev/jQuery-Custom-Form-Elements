@@ -102,6 +102,11 @@
                                     $(this).data('element').click().change();
                                 });
                             }
+
+                            /* obviously, we need to track hover on label */
+                            $('label[for='+el.attr('id')+']').hover(function(){
+                                el.data('pholder').toggleClass('hover')
+                            });
                             break;
 
                         case 'radio':
@@ -118,6 +123,7 @@
                                       'name':el.attr('name')
                                   });
                             el
+                                .data('pholder',placeHolder)
                                 .before(placeHolder)
                                 .bind('change.cfe', function(e){
                                     $('[name="'+$(this).attr('name')+'"]').prev().removeClass('checked');
@@ -131,13 +137,18 @@
                                 });
                             }
 
+                            /* obviously, we need to track hover on label */
+                            $('label[for='+el.attr('id')+']').hover(function(){
+                                el.data('pholder').toggleClass('hover')
+                            });
+
                             break;
 
                         case 'file':
                             el.wrap('<div class="cfe_file_wrp" />');
                             var wrp = el.parent();
 
-                            el.after('<div title="Выбрать файл" class="fakeButton">Выбрать файл</div>'+
+                            el.after('<div title="Choose file" class="fakeButton">Choose file</div>'+
                                     '<div class="fileNamePlaceHolder" />')
                                 .addClass('cfe_file')
                                 .wrap('<span class="'+el.get(0).id+'_input_wrp" />');
@@ -150,8 +161,8 @@
                                     reUnix = /.*\/(.*)/,
                                     fileTitle
 
-                                fileTitle = file.replace(reWin, "$1") //выдираем название файла для windows
-                                                .replace(reUnix, "$1"); //выдираем название файла для unix-систем
+                                fileTitle = file.replace(reWin, "$1") //file name - win
+                                                .replace(reUnix, "$1"); //fiele name - unix
                                 fileName.html(fileTitle);
 
                                 if (fileTitle.length == 0) {
@@ -165,7 +176,7 @@
                                     fileName.removeAttr('ext');
                                 }
 
-                                var ext = fileTitle.replace(/.*(\..*)/, "$1");//и его расширение
+                                var ext = fileTitle.replace(/.*(\..*)/, "$1");// file extension
 
                                 if (ext) {
                                     ext = ext.toLowerCase().substr(1);
