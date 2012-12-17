@@ -17,61 +17,54 @@ input{
     padding:40px;
 }
 
-.cfe_radio_wrp span{
-    background:url(../img/radio.png) no-repeat;
-    width:19px;
-    height:20px;
+
+.cfe-radio .placeholder{
+  background:url(../img/radio.png) no-repeat;
+  width:19px;
+  height:20px;
 }
-.cfe_radio_wrp input{
-    margin: 1px 0 0 0;
+.cfe-radio:hover .placeholder{
+  background-position:0 -25px;
 }
-.cfe_radio_wrp .pholder {
-    left: -2px;
-    top: -4px;
+.cfe-radio.checked .placeholder{
+  background-position:0 -50px;
 }
-.cfe_radio_wrp span.hover,
-.cfe_radio_wrp span:hover{
-    background-position:0 -25px;
+.cfe-radio.checked:hover .placeholder{
+  background-position:0 -75px;
 }
-.cfe_radio_wrp span.checked{
-    background-position:0 -50px;
-}
-.cfe_radio_wrp span.checked.hover,
-.cfe_radio_wrp span.checked:hover{
-    background-position:0 -75px;
+.cfe-radio input{
+  margin: 1px 0 0 0;
 }
 
 
-
-.cfe_checkbox_wrp span{
+.cfe-checkbox .placeholder{
     background:url(../img/checkbox.png) no-repeat;
     width:19px;
     height:20px;
 }
-.cfe_checkbox_wrp input{
+.cfe-checkbox input{
     margin: 1px 0 0 0;
 }
-.cfe_checkbox_wrp .pholder {
-    left: -2px;
-    top: -3px;
+.cfe-checkbox .placeholder {
+
 }
-.cfe_checkbox_wrp span.hover,
-.cfe_checkbox_wrp span:hover{
+.cfe-checkbox.hover .placeholder,
+.cfe-checkbox:hover .placeholder{
     background-position:0 -25px;
 }
-.cfe_checkbox_wrp span.checked{
+.cfe-checkbox.checked .placeholder{
     background-position:0 -50px;
 }
-.cfe_checkbox_wrp span.checked.hover,
-.cfe_checkbox_wrp span.checked:hover{
+.cfe-checkbox.checked.hover .placeholder,
+.cfe-checkbox.checked:hover .placeholder{
     background-position:0 -75px;
 }
 
-.cfe_select_wrp{
+.cfe-select{
     color: #888888;
     font-size: 12px;
 }
-.cfe_select_wrp .pholder{
+.cfe-select .placeholder{
     color: #888888;
     background: url("../img/select.png") no-repeat scroll 0 0 transparent;
     font-size: 12px;
@@ -80,7 +73,7 @@ input{
     padding: 6px 22px 4px 6px;
     width: 136px;
 }
-.cfe_select_wrp select{
+.cfe-select select{
     height: 21px;
     width:164px;
     border: medium none;

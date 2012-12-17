@@ -1,0 +1,99 @@
+.cfe-styled{
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+/** Select **/
+.cfe-select{
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+
+.cfe-select .placeholder{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.cfe-select select{
+  opacity:0;
+  filter: alpha(opacity=0);
+  z-index: 1;
+  border: none;
+}
+.cfe-select.disabled{
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+/** Radio **/
+.cfe-radio{
+  position: relative;
+}
+.cfe-radio input{
+  display: none;
+}
+.cfe-radio .placeholder{
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+/** Checkbox **/
+.cfe-checkbox{
+  position:relative;
+}
+.cfe-checkbox input{
+  display: none;
+}
+.cfe-checkbox .placeholder{
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+/** File **/
+.cfe-file{
+  position:relative;
+  overflow:hidden;
+}
+.cfe-file input{
+  z-index: 2;
+  font-size: 100px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.cfe-file .placeholder{
+  padding: 5px 10px;
+  border: 1px solid #CCCCCC;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px;
+  background: none repeat scroll 0 0 #EBEBEB;
+  color: #1C94C4;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.cfe-file .file-name-placeholder{
+  color: #000000;
+  display: none;
+  font-size: 12px;
+  height: 15px;
+  margin: 5px 0;
+  padding: 2px 0;
+  margin: 0 0 0 7px;
+}
