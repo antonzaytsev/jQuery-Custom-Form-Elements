@@ -4,7 +4,7 @@
   "title": "jQuery Custom form elements",
   "description": "Provides dom actions on form elements (input:text, input:checkbox, input:radio, input:file, select) to get them custom style",
   "keywords": [
-    "styled form", "styled input", "styled form elements"
+    "styled form", "styled input", "styled form elements", "ui", "input", "select"
   ],
   "author": {
     "name": "Anton Zaytsev",
