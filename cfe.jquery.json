@@ -1,0 +1,29 @@
+{
+  "name": "cfe",
+  "version": "0.7.3",
+  "title": "jQuery Custom form elements",
+  "description": "Provides dom actions on form elements (input:text, input:checkbox, input:radio, input:file, select) to get them custom style",
+  "keywords": [
+    "styled form", "styled input", "styled form elements"
+  ],
+  "author": {
+    "name": "Anton Zaytsev",
+    "email": "me@antonzaytsev.com",
+    "url": "http://antonzaytsev.com"
+  },
+  "maintainers": [
+    {
+      "name": "Vitaliy Zaytsev",
+      "url": "https://github.com/kroleg"
+    }
+  ],
+  "licenses": {
+    "type": "MIT",
+    "url": "http://opensource.org/licenses/MIT"
+  },
+  "dependencies": {
+    "jquery": ">= 1.5.0"
+  },
+  "bugs": "https://github.com/anton-zaytsev/jQuery-Custom-Form-Elements/issues",
+  "homepage": "https://github.com/anton-zaytsev/jQuery-Custom-Form-Elements"
+}

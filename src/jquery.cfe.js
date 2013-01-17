@@ -1,7 +1,7 @@
 /*
  * Custom Form Elements
  *
- * Requirments: jQuery 1.3.2+
+ * Requirments: jQuery 1.5.0+
  * Version: 0.7.3
  * Author: Anton Zaytsev (http://antonzaytsev.com)
  *
