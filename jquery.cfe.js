@@ -1,8 +1,8 @@
 /*
  * Custom Form Elements
  *
- * Requirments: jQuery 1.5.0+
- * Version: 0.7.3
+ * Requirments: jQuery 1.3.2+
+ * Version: 0.71
  * Author: Anton Zaytsev (http://antonzaytsev.com)
  *
  * Simple usage:
@@ -12,21 +12,21 @@
 
 (function($){
   $.fn.cfe = function(options) {
+    var text, placeHolder, name, type, tag;
+
     options = $.extend({
-      placeholder:{
+      placeHolder:{
         tag: 'span',
-        'class': 'placeholder'
+        'class': 'pholder'
       },
       wrap: {
         tag: 'span',
-        'class': ''
+        'class': 'cfe-{tag}'
       }
     }, options);
 
     this.each(function(){
-      var text, placeholder, name, type, tag, wrap,
-          el = $(this),
-          placeholder_classes = [];
+      var el = $(this), placeHolder_class = [];
 
       if (el.data('cfe') == 1)
         return;
@@ -35,30 +35,27 @@
 
       tag = String(el[0].tagName).toLowerCase();
 
-      placeholder_classes.push(options['placeholder']['class']);
+      var name = el.attr('name');
+      if (name)
+        name = name.replace(/(\]\[)|(\])|(\[)/gi,'_');
 
-      wrap = $('<'+options.wrap.tag+'/>', {
-        'class': "cfe-styled"
-      });
-
-      el.after(wrap);
-      wrap.append(el);
+      placeHolder_class.push(options['placeHolder']['class']);
 
       switch(tag){
 
         case 'select':
-          wrap.addClass('cfe-'+tag);
+          el.wrap('<span class="cfe-'+tag+'" />');
+          var wrap = el.parent();
 
           if ($(this).attr('cfe-class')) {
-            wrap.addClass($(this).attr('cfe-class'));
+            el.parent().addClass($(this).attr('cfe-class'));
           }
 
-          placeholder = $("<"+options['placeholder']['tag']+"/>")
-            .addClass(placeholder_classes.join(' '))
+          placeHolder = $("<"+options['placeHolder']['tag']+"/>")
+            .addClass(placeHolder_class.join(' '))
             .data('element', el)
             .text((el.find('option:selected').length == 1 ? el.find('option:selected') : el.find('option:first') ).text());
-
-          el.before(placeholder);
+          el.before(placeHolder);
 
           if (!el.attr("disabled")) {
             el.bind('change', function(){
@@ -69,7 +66,7 @@
             });
           }
           else {
-            el.parent().addClass("disabled");
+            placeHolder.addClass("disabled");
           }
 
           var classes = $.trim(el.attr('class')).split(' ');
@@ -82,106 +79,129 @@
           break;
 
         case 'input':
-          type = el.attr('type');
+          var type = el.attr('type');
           text = '';
 
-          wrap.addClass('cfe-'+type);
           switch (type) {
 
             case 'checkbox':
+              el.wrap('<'+options.wrpTag+' class="cfe_'+type+'_wrp" />');
+
               if (el.is(':checked')) {
-                wrap.addClass('checked');
+                placeHolder_class.push('checked');
               }
 
-              placeholder = $("<"+options.placeholder.tag+"/>")
-                .addClass(placeholder_classes.join(' '))
-                .data('element', el);
-
-              el.before(placeholder);
-              el.data('placeholder',placeholder);
+              placeHolder = $("<"+options.placeHolder+"/>")
+                .addClass(placeHolder_class.join(' '))
+                .data({'element':el});
+              el.before(placeHolder);
 
               /*
                * if checkbox is inside of label then we just need to handle click on checkbox
                * because click on placeholder will propagate to label
                * and click on label will trigger click on checkbox
                */
-              el.bind('change.cfe', function(e){
-                  e.stopPropagation();
+              el
+                .data('pholder',placeHolder)
+                .bind('change.cfe', function(e){
+                  var pholder = $(this).data('pholder');
 
                   if (!$(this).is(':checked'))
-                    $(this).parent().removeClass('checked');
+                    pholder.removeClass('checked');
                   else
-                    $(this).parent().addClass('checked');
-              });
+                    pholder.addClass('checked');
 
-              // if checkbox is inside of label we should handle click on placeholder
-              if (el.closest('label').length == 0){
-                placeholder.bind('click.cfe', function(e){
-                  var input = $(this).data('element');
-                  input.click();
+                  e.stopPropagation();
+                });
+
+              /* if checkbox is inside of label
+               * we should handle click on placeholder*/
+              if (!$('#'+el.attr('id'),'label[for='+el.attr('id')+']').size()){
+                placeHolder.bind('click.cfe', function(e){
+                  //just click is not enough because it wont trigger change
+                  $(this).data('element').click().change();
                 });
               }
+
+              /* obviously, we need to track hover on label */
+              $('label[for='+el.attr('id')+']').hover(function(){
+                el.data('pholder').toggleClass('hover')
+              });
               break;
 
             case 'radio':
-              placeholder = $("<"+options.placeholder.tag+" />")
-                .addClass(placeholder_classes.join(' '))
-                .data('element', el);
+              el.wrap('<'+options.wrpTag+' class="cfe_'+type+'_wrp" />');
 
-              el.data('placeholder', placeholder)
-                .before(placeholder)
+              if (el.is(':checked')) {
+                placeHolder_class.push('checked');
+              }
+
+              placeHolder = $("<"+options.placeHolder+"/>")
+                .addClass(placeHolder_class.join(' '))
+                .data({
+                  'element':el,
+                  'name':el.attr('name')
+                });
+              el
+                .data('pholder',placeHolder)
+                .before(placeHolder)
                 .bind('change.cfe', function(e){
-                  $('[name="'+$(this).attr('name')+'"]:not(:checked)').parent().removeClass('checked');
-                  if ($(this).is(':checked')) {
-                    $(this).parent().addClass('checked');
-                  }
-                })
-                .trigger('change.cfe');
+                  $('[name="'+$(this).attr('name')+'"]').prev().removeClass('checked');
+                  $(this).prev().toggleClass('checked');
+                });
 
               /* same like with checkbox */
-              if (el.closest('label').length == 0){
-                placeholder.bind('click.cfe', function(e){
-                  $(this).data('element').click().trigger('change');
+              if (!$('#'+el.attr('id'),'label[for='+el.attr('id')+']').size()){
+                placeHolder.bind('click.cfe', function(e){
+                  $(this).data('element').click().change();
                 });
               }
+
+              /* obviously, we need to track hover on label */
+              $('label[for='+el.attr('id')+']').hover(function(){
+                el.data('pholder').toggleClass('hover')
+              });
+
               break;
 
             case 'file':
-              var filenamePlaceholder = $('<span class="file-name-placeholder" />');
-              placeholder = $('<span class="placeholder">Choose file</span>');
+              el.wrap('<div class="cfe_file_wrp" />');
+              var wrp = el.parent();
 
-              el.after(filenamePlaceholder);
-              el.after(placeholder);
-
-              var reWin = /.*\\(.*)/,
-                  reUnix = /.*\/(.*)/,
-                  fileTitle;
+              el.after('<div title="Choose file" class="fakeButton">Choose file</div>'+
+                '<div class="fileNamePlaceHolder" />')
+                .addClass('cfe_file')
+                .wrap('<span class="'+el.get(0).id+'_input_wrp" />');
 
               el.bind('change.cfe', function() {
 
-                var file = $(this).val();
+                var file = $(this).val(),
+                  fileName = wrp.find('.fileNamePlaceHolder'),
+                  reWin = /.*\\(.*)/,
+                  reUnix = /.*\/(.*)/,
+                  fileTitle
 
                 fileTitle = file.replace(reWin, "$1") //file name - win
-                                .replace(reUnix, "$1"); //fiele name - unix
+                  .replace(reUnix, "$1"); //fiele name - unix
+                fileName.html(fileTitle);
 
                 if (fileTitle.length == 0) {
-                  filenamePlaceholder.hide().html('');
+                  fileName.hide()
                   return;
                 }
+                fileName.show();
 
-                filenamePlaceholder.show().html(fileTitle);
-
-                if (filenamePlaceholder.attr('ext')){
-                  filenamePlaceholder.removeClass('ext_'+filenamePlaceholder.attr('ext'));
-                  filenamePlaceholder.removeAttr('ext');
+                if (fileName.attr('ext')){
+                  fileName.removeClass('ext_'+fileName.attr('ext'));
+                  fileName.removeAttr('ext');
                 }
 
-                var ext = fileTitle.replace(/.*(\..*)/, "$1"); // file extension
+                var ext = fileTitle.replace(/.*(\..*)/, "$1");// file extension
 
                 if (ext) {
                   ext = ext.toLowerCase().substr(1);
-                  filenamePlaceholder.addClass('ext_'+ext);
-                  filenamePlaceholder.attr('ext', ext);
+                  fileName.addClass('ext_'+ext);
+                  fileName.attr('ext', ext);
                 }
 
               }).trigger('change');
